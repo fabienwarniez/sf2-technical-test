@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <div>Hello {{ logged_in_user_name }}!</div>
+    <div>Hello {{ logged_in_user_name }}! | <a href="{{ path('acme_fabien_login_logout') }}">Logout</a></div>
     <ul>
         {% for repo in repos %}
             <li>{{ repo['name'] }} / {{ repo['watchers_count'] }}</li>

@@ -1,5 +1,14 @@
 # EA Symfony2 Technical Test
 
+### Notes (after an additional 2 hours)
+
+* I spent 2 more hours (6 total). I decided to spend a bit more time because I am fairly new to Symfony 2 and lost a lot of time looking up the Symfony way to do things.
+* I made the GitHub class a service.
+* I created a before filter to handle authentication.
+* I added a couple of unit tests.
+
+The state of the work after 4 hours is available at this commit: https://github.com/fabienwarniez/sf2-technical-test/commit/faa120eec8fde4792f22d65ee66c2ff982a41674
+
 ### Notes
 
 * I spent 4 hours on the test.

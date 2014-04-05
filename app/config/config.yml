@@ -67,3 +67,13 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+services:
+    github:
+        class: Acme\FabienBundle\Services\GitHubService
+        arguments: ['@service_container']
+    action_listener:
+        class: Acme\FabienBundle\EventListener\AuthenticationListener
+        arguments: ['@service_container', '@router']
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
