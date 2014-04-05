@@ -5,6 +5,7 @@
 * I spent 4 hours on the test.
 * I am not completely familiarized with Symfony 2 (coming from Zend), so I did not use the authentication module to not waste too much time, nor did I fully embrace Symfony's patterns and features.
 * I wanted to make the GitHub API access a service, but did not have time, unfortunately.
+* I also did not have time to get to unit tests.
 
 ### Task
 
