@@ -1,0 +1,5 @@
+acme_fabien:
+    resource: "@AcmeFabienBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

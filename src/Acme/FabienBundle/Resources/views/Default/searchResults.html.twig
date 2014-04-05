@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <div>Hello {{ logged_in_user_name }}!</div>
+    <ul>
+        {% for repo in repos %}
+            <li>{{ repo['name'] }} / {{ repo['watchers_count'] }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

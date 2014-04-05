@@ -1,5 +1,11 @@
 # EA Symfony2 Technical Test
 
+### Notes
+
+* I spent 4 hours on the test.
+* I am not completely familiarized with Symfony 2 (coming from Zend), so I did not use the authentication module to not waste too much time, nor did I fully embrace Symfony's patterns and features.
+* I wanted to make the GitHub API access a service, but did not have time, unfortunately.
+
 ### Task
 
 * The task is implement a website that allows the user to login to search the Github repoistories.

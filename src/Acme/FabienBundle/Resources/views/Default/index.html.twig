@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <div>Hello {{ logged_in_user_name }}!</div>
+    <div>
+        <form method="POST" action="{{ path('acme_fabien_default_searchresults') }}">
+            <div>
+                <label for="username">GitHub user name</label>
+                <input type="text" name="username" />
+            </div>
+            <div>
+                <input type="submit" value="Search" />
+            </div>
+        </form>
+    </div>
+    {% if error_message is not null %}
+    <div style="color: red;">{{ error_message }}</div>
+    {% endif %}
+
+{% endblock %}

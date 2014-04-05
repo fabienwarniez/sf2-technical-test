@@ -1,0 +1,10 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <div>
+        <p>You are not authenticated. Please login with GitHub by clicking the link below and authorizing our application.</p>
+        <p><a href="{{ path('acme_fabien_login_authenticate') }}">Authenticate with GitHub (you will be redirected to GitHub's website).</a></p>
+    </div>
+
+{% endblock %}

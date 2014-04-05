@@ -34,3 +34,12 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+parameters:
+    github:
+        authorize_url: "https://github.com/login/oauth/authorize?client_id=%%s&redirect_uri=%%s&scope=%%s&state=%%s"
+        access_token_url: "https://github.com/login/oauth/access_token"
+        api_current_user_endpoint: "https://api.github.com/user"
+        api_user_repos_endpoint: "https://api.github.com/users/%%s/repos"
+        client_id: "e1a897c03d8a74efa427"
+        client_secret: "8c35447f0ce4b716e55b9c70a0f3aa8d20a6ff52"

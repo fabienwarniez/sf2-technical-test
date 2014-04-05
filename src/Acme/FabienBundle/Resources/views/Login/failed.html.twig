@@ -1,0 +1,10 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <div>
+        <p>Login failed. This could be because you did not authorize GitHub to access our application.</p>
+        <p><a href="{{ path('acme_fabien_login_authenticate') }}">Try again</a></p>
+    </div>
+
+{% endblock %}
