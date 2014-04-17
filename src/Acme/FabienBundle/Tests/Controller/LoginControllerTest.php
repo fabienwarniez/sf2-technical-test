@@ -11,7 +11,7 @@ class LoginControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/login');
+        $crawler = $client->request('GET', '/login/');
 
         $this->assertEquals(
             Response::HTTP_OK,

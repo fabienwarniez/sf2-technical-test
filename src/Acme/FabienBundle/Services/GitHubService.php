@@ -77,7 +77,10 @@ class GitHubService
                 'code' => $code,
                 'redirect_uri' => $callbackUrl
             ),
-            array('Accept: application/json')
+            array(
+                'User-Agent: fabienwarniez',
+                'Accept: application/json'
+            )
         );
 
         $decodedResponse = json_decode($response, true);
@@ -160,23 +163,18 @@ class GitHubService
         $formattedDataString = null;
         if (is_array($data) && !empty($data))
         {
-            $dataStrings = array();
-            foreach ($data as $key => $value)
-            {
-                $dataStrings []= $key . '=' . urlencode($value);
-            }
-            $formattedDataString = implode('&', $dataStrings);
+            $formattedDataString = http_build_query($data);
         }
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($ch, CURLOPT_POST, $method == "POST");
         if ($formattedDataString != null)
         {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $formattedDataString);
         }
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
         if (is_array($headers) && !empty($headers))
         {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
