@@ -69,9 +69,13 @@ swiftmailer:
     spool:     { type: memory }
 
 services:
+    curl:
+        class: Acme\FabienBundle\Service\CurlService
     github:
-        class: Acme\FabienBundle\Services\GitHubService
-        arguments: ['@service_container']
+        class: Acme\FabienBundle\Service\GitHubService
+        arguments:
+            - '@curl'
+            - github: '%github%'
     action_listener:
         class: Acme\FabienBundle\EventListener\AuthenticationListener
         arguments: ['@service_container', '@router']

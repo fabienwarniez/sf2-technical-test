@@ -8,7 +8,7 @@
 
 namespace Acme\FabienBundle\Controller;
 
-use Acme\FabienBundle\Services\GitHubService;
+use Acme\FabienBundle\Service\GitHubService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

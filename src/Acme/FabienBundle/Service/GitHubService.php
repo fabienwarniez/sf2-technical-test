@@ -6,18 +6,20 @@
  * Time: 10:11 AM
  */
 
-namespace Acme\FabienBundle\Services;
+namespace Acme\FabienBundle\Service;
 
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 /**
  * Class GitHubService
- * @package Acme\FabienBundle\Services
+ * @package Acme\FabienBundle\Service
  */
 class GitHubService
 {
-    private $container;
+    /** @var INetworkRequestMaker */
+    private $networkRequestMaker;
+
     private $clientId;
     private $clientSecret;
     private $authorizeUrl;
@@ -25,11 +27,11 @@ class GitHubService
     private $getLoggedInUserEndpoint;
     private $getUserRepositoriesEndpoint;
 
-    public function __construct(Container $container)
+    public function __construct(INetworkRequestMaker $networkRequestMaker, $arguments)
     {
-        $this->container = $container;
+        $this->networkRequestMaker = $networkRequestMaker;
 
-        $githubConfig = $container->getParameter('github');
+        $githubConfig = $arguments['github'];
 
         if (empty($githubConfig))
         {
@@ -68,9 +70,8 @@ class GitHubService
      */
     public function getAccessToken($code, $callbackUrl)
     {
-        $response = $this->curl(
+        $response = $this->networkRequestMaker->post(
             $this->accessTokenUrl,
-            'POST',
             array(
                 'client_id' => $this->clientId,
                 'client_secret' => $this->clientSecret,
@@ -103,10 +104,8 @@ class GitHubService
      */
     public function getCurrentUser($accessToken)
     {
-        $currentUserResponse = $this->curl(
+        $currentUserResponse = $this->networkRequestMaker->get(
             $this->getLoggedInUserEndpoint,
-            'GET',
-            null,
             array(
                 'User-Agent: fabienwarniez',
                 'Accept: application/vnd.github.beta+json',
@@ -127,10 +126,8 @@ class GitHubService
 
     public function getUserRepositories($userName, $accessToken)
     {
-        $repositoriesResponse = $this->curl(
+        $repositoriesResponse = $this->networkRequestMaker->get(
             sprintf($this->getUserRepositoriesEndpoint, urlencode($userName)),
-            'GET',
-            null,
             array(
                 'User-Agent: fabienwarniez',
                 'Accept: application/vnd.github.beta+json',
@@ -147,40 +144,5 @@ class GitHubService
         {
             return null;
         }
-    }
-
-    /**
-     * Helper method used to make HTTP requests, using CURL.
-     *
-     * @param $url string
-     * @param $method string "GET" or "POST"
-     * @param $data array Expected format: array('key1' => 'value1', 'key2' => 'value2')
-     * @param $headers array
-     * @return string
-     */
-    private function curl($url, $method, $data = null, $headers = null)
-    {
-        $formattedDataString = null;
-        if (is_array($data) && !empty($data))
-        {
-            $formattedDataString = http_build_query($data);
-        }
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, $method == "POST");
-        if ($formattedDataString != null)
-        {
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $formattedDataString);
-        }
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-        if (is_array($headers) && !empty($headers))
-        {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        }
-        $content = curl_exec($ch);
-        curl_close($ch);
-        return $content;
     }
 }
