@@ -43,10 +43,10 @@ class CurlService implements INetworkRequestMaker
     /**
      * Helper method used to make POST HTTP requests.
      *
-     * @param $url
+     * @param $url string
      * @param $data array Expected format: array('key1' => 'value1', 'key2' => 'value2')
-     * @param array $headers
-     * @return mixed
+     * @param $headers array
+     * @return string
      */
     public function post($url, $data, $headers = null)
     {
@@ -64,7 +64,6 @@ class CurlService implements INetworkRequestMaker
             curl_setopt($ch, CURLOPT_POSTFIELDS, $formattedDataString);
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
         if (is_array($headers) && !empty($headers))
         {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
